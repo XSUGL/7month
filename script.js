@@ -123,7 +123,9 @@ function createCandles() {
       
       if (!candlesClicked.has(candleId)) {
         candlesClicked.add(candleId);
-        candle.style.opacity = '0.5';
+        
+        // Extinguish the candle
+        candle.classList.add('extinguished');
         
         // Create burst hearts from candle
         const rect = candle.getBoundingClientRect();

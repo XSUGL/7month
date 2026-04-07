@@ -185,10 +185,23 @@ PAGE 1 — HERO
   align-items:center;
   gap:0;
   animation:candleFloat var(--cdur,4s) ease-in-out infinite var(--cdelay,0s);
-  transition:transform 0.3s;
+  transition:transform 0.3s, opacity 0.6s ease;
 }
 
 .candle:hover{transform:scale(1.18)!important;}
+
+.candle.extinguished{
+  opacity:0.4;
+  filter:grayscale(100%);
+}
+
+.candle.extinguished .candle-flame{
+  display:none;
+}
+
+.candle.extinguished .candle-glow{
+  display:none;
+}
 
 @keyframes candleFloat{
   0%,100%{transform:translateY(0);}
