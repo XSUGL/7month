@@ -89,42 +89,33 @@ mainHeart.addEventListener('click', function(e) {
 // Candles tracking
 let candlesClicked = new Set();
 const totalCandles = 5;
+let candlesToClick = [];
 
-// Candles setup
-function createCandles() {
-  const container = document.getElementById('candlesContainer');
-  const positions = [
-    { x: 10, y: 20 },
-    { x: 25, y: 25 },
-    { x: 75, y: 25 },
-    { x: 90, y: 20 },
-    { x: 50, y: 15 }
-  ];
-  
-  positions.forEach((pos, i) => {
+// Falling candles animation
+function createFallingCandles() {
+  setInterval(() => {
+    const candleId = candlesToClick.length;
+    
     const candle = document.createElement('div');
-    candle.className = 'candle';
-    candle.setAttribute('data-candle-id', i);
-    candle.style.setProperty('--cdelay', (i * 0.3) + 's');
-    candle.style.left = pos.x + '%';
-    candle.style.top = pos.y + '%';
+    candle.className = 'falling-candle';
+    candle.setAttribute('data-candle-id', candleId);
+    candle.style.left = Math.random() * 100 + '%';
+    candle.style.setProperty('--fall-duration', (10 + Math.random() * 5) + 's');
+    candle.style.setProperty('--fall-delay', (Math.random() * 1) + 's');
     
     candle.innerHTML = `
       <div class="candle-glow"></div>
       <div class="candle-flame"></div>
       <div class="candle-body"></div>
-      <div class="candle-label">Нажми</div>
     `;
     
     candle.addEventListener('click', (e) => {
       e.stopPropagation();
       
-      const candleId = parseInt(candle.getAttribute('data-candle-id'));
+      const id = parseInt(candle.getAttribute('data-candle-id'));
       
-      if (!candlesClicked.has(candleId)) {
-        candlesClicked.add(candleId);
-        
-        // Extinguish the candle
+      if (!candlesClicked.has(id)) {
+        candlesClicked.add(id);
         candle.classList.add('extinguished');
         
         // Create burst hearts from candle
@@ -145,10 +136,21 @@ function createCandles() {
       }
     });
     
-    container.appendChild(candle);
-  });
+    document.body.appendChild(candle);
+    candlesToClick.push(candle);
+    
+    setTimeout(() => {
+      if (candle.parentNode) candle.remove();
+    }, 18000);
+  }, 2200);
 }
-createCandles();
+
+// Start falling candles only on page 2
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    createFallingCandles();
+  }, 100);
+});
 
 // Page visibility
 function makeCardsVisible() {
