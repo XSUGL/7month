@@ -157,6 +157,24 @@ function makeCardsVisible() {
   });
 }
 
+// Falling hearts background animation
+function createFallingHearts() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'falling-heart';
+    heart.textContent = '❤️';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.setProperty('--fall-duration', (8 + Math.random() * 6) + 's');
+    heart.style.setProperty('--fall-delay', (Math.random() * 2) + 's');
+    heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+    
+    document.body.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 15000);
+  }, 400);
+}
+createFallingHearts();
+
 // Scroll navigation
 function scrollToPage(pageNum) {
   document.getElementById('page' + pageNum).scrollIntoView({ behavior: 'smooth' });

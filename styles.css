@@ -361,6 +361,33 @@ PAGE 2 — MESSAGE
   margin-top:2px;
 }
 
+/* ── FALLING HEARTS ── */
+.falling-heart{
+  position:fixed;
+  top:-30px;
+  pointer-events:none;
+  z-index:3;
+  opacity:0.6;
+  animation:fallDown var(--fall-duration, 10s) linear var(--fall-delay, 0s) forwards;
+}
+
+@keyframes fallDown{
+  0%{
+    transform:translateY(0) rotate(0deg);
+    opacity:0.8;
+  }
+  10%{
+    opacity:0.7;
+  }
+  90%{
+    opacity:0.4;
+  }
+  100%{
+    transform:translateY(100vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
 /* ══════════════════════
 PAGE 3 — POEM
 ══════════════════════ */
