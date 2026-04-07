@@ -1,3 +1,16 @@
+// Mobile touch optimization
+if ('ontouchstart' in window) {
+  document.body.classList.add('touch-device');
+  document.documentElement.style.fontSize = 'clamp(14px, 2.5vw, 16px)';
+}
+
+// Prevent zoom on double tap
+document.addEventListener('touchend', (e) => {
+  if (e.touches.length === 0) {
+    // Touch ended
+  }
+}, false);
+
 // Heart canvas animation
 const canvas = document.getElementById('heartCanvas');
 const ctx = canvas.getContext('2d');
