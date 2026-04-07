@@ -168,11 +168,33 @@ function createFallingHearts() {
     heart.style.setProperty('--fall-delay', (Math.random() * 2) + 's');
     heart.style.fontSize = (16 + Math.random() * 20) + 'px';
     
+    heart.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showLoveMessage(e.clientX, e.clientY);
+      heart.remove();
+    });
+    
     document.body.appendChild(heart);
     
-    setTimeout(() => heart.remove(), 15000);
+    setTimeout(() => {
+      if (heart.parentNode) heart.remove();
+    }, 15000);
   }, 400);
 }
+
+// Show love message when clicking falling hearts
+function showLoveMessage(x, y) {
+  const message = document.createElement('div');
+  message.className = 'love-message';
+  message.textContent = 'Я люблю тебя безумно сильно, зай 💕';
+  message.style.left = x + 'px';
+  message.style.top = y + 'px';
+  
+  document.body.appendChild(message);
+  
+  setTimeout(() => message.remove(), 3500);
+}
+
 createFallingHearts();
 
 // Scroll navigation
